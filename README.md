@@ -9,12 +9,10 @@ Create a worker without using a seperate worker.js file
 ###Usage:
     //Assumes Worker API is available on the client
     const nodeWorker = require('node-web-worker');
+
+    //Here, self refers to the window object in which the worker executes
     const worker_url = nodeWorker.create( function ( e ) {  //from function
-      console.log('Example post from Worker'); //your code here
+        self.postMessage('Example post from Worker'); //your code here
     });
 
     const worker = new Worker(worker_url);
-
-
-
-
