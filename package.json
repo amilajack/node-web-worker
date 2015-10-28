@@ -1,0 +1,24 @@
+{
+  "name": "node-web-worker",
+  "version": "1.0.0",
+  "description": "A port of https://github.com/zevero/worker-create/ intended for use with Browserify",
+  "main": "node-web-worker.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/audun-/node-web-worker.git"
+  },
+  "keywords": [
+    "webworker",
+    "browserify",
+    "threads"
+  ],
+  "author": "Audun Bjornerud Mo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/audun-/node-web-worker/issues"
+  },
+  "homepage": "https://github.com/audun-/node-web-worker#readme"
+}
