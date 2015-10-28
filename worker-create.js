@@ -16,8 +16,17 @@
  * 
  */
 'use strict';
-Worker.create = function(func_or_string){
-    var str = (typeof func_or_string === 'function')?func_or_string.toString():func_or_string;
-    var blob = new Blob(['\'use strict\';\nself.onmessage ='+str], { type: 'text/javascript' });
+const nodeWorker = window.Worker;
+/*
+ * @param String func_or_string
+ * @return String
+ *
+ * Takes a 
+ */
+nodeWorker.create = function(func_or_string){
+    const str = ( typeof func_or_string === 'function' ) ? func_or_string.toString() : func_or_string;
+    const blob = new Blob(['\'use strict\';\nself.onmessage ='+str], { type: 'text/javascript' });
     return window.URL.createObjectURL(blob);
 };
+
+module.exports = nodeWorker;
