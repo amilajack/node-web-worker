@@ -1,32 +1,30 @@
 /*global Worker, Blob*/
 
-/* https://github.com/zevero/worker-create 
+/* https://github.com/audun-/node-web-worker
  *
  * Create a worker without using a seperate worker.js file either from function or from string
  * 
- * Preparation:
- * var worker_url = Worker.create(function(e){ //from function
- *   self.postMessage('Example post from Worker'); //your code here
- * });
- * or
- * var worker_url = Worker.create("self.postMessage('Example post from Worker');"); //from string
- *
- * Usage:
- * var worker = new Worker(worker_url); //as often as you like
- * 
  */
+
 'use strict';
-const nodeWorker = window.Worker;
+const nodeWorker = {};
+
 /*
- * @param String func_or_string
- * @return String
+ * @param Function
+ * @return Worker
  *
- * Takes a 
+ * Takes a function, stringifies it, assigns it to the onmessage property of the window of the worker,
+ * then returns the worker.
  */
-nodeWorker.create = function(func_or_string){
-    const str = ( typeof func_or_string === 'function' ) ? func_or_string.toString() : func_or_string;
-    const blob = new Blob(['\'use strict\';\nself.onmessage ='+str], { type: 'text/javascript' });
-    return window.URL.createObjectURL(blob);
+
+nodeWorker.create = function( func ){
+    //Here, self represents the window object of the worker
+    const stringifiedFunction = func.toString();
+    const completedFunction = [`use strict; \n self.onmessage = ${stringifiedFunction}`];
+    const blob = new Blob([ completedFunction , { type: 'text/javascript' }]);
+
+
+    return Worker(window.URL.createObjectURL(blob));
 };
 
 module.exports = nodeWorker;
